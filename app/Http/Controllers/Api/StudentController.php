@@ -17,25 +17,48 @@ function studentIndex(){
 function studentStore(Request $request){
      
     //$students = Student::latest()->get();
-$students = new Student();
-$students->roll= $request->roll;
-$students->name= $request->name;
-$students->group= $request->group;
-$students->save();
+  $students = new Student();
+  $students->roll= $request->roll;
+  $students->name= $request->name;
+  $students->group= $request->group;
+  $students->save();
+
+  $msg="Student added succesful";
+  return response()->json( ['success'=>$msg],200);
+
+      }//end method
 
 
-      // $studentstore::insert([
+function studentEdit($id){
+   
+  $students = Student::find($id);
+  return response()->json($students);
+         
+
+}//end method
+
+function studentUpdate(Request $request, $id){
+   
+  $students = Student::find($id);
+  $students->roll= $request->roll;
+  $students->name= $request->name;
+  $students->group= $request->group;
+  $students->save();
+  
+      $msg="Student Update succesful";
+      return response()->json( ['success'=>$msg],200);
     
+         
 
-      //   'roll'=>$request->roll,
-      //   'name'=>$request->name,
-      //   'group'=>$request->group,
+}//end method
 
+function studentDelete($id){
+   
+    $Studentid= Student::find($id);
+    $Studentid->delete();
+    $msg="Delete succesful";
+    return response()->json( ['success'=>$msg],200);
 
-      // ]);
-      $msg="Student added succesful";
-            return response()->json( ['success'=>$msg],200);
-
-}
+}//end method
 
 }
